@@ -1,0 +1,211 @@
+{% extends "werewolves/base.html" %}
+{% load static %}
+
+{% block heading %}
+<span id="id_logged_in_username">{{user.username}}</span>
+{% endblock %}
+
+{% block content %}
+<div>
+    <form method="get" action="{% url 'rules' %}">
+        <button class="hidden_buttons buttons log-out" style="display: none" id="id_end_game_hidden_button" disabled>Exit the Game</button>
+        <span id="error" class="error"></span>
+    </form>
+</div>
+<div class="container">
+    <div class="row" id="canvas">
+        <div class="col-md-12 col-lg-12">
+            <div class="game col-md-8 col-lg-8">
+                <div class="row justify-content-center" id="identity">
+                    Your identity is: {{identity}}
+                </div>
+
+                <div class="row avatar-row justify-content-center" id="avatars_row_1">
+                    <div class="col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <a href="#" onclick="selectPlayer(1)" id="player_1_avatar_link">
+                            <img id="avatar_1_img" src="{% static avatar1 %}" alt="player 1">
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-lg-3">
+                    </div>
+                </div>
+
+                <div class="row username-row justify-content-center" id="username_row_1">
+                    <div class="col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <div class="username" id="player_1_name">
+                            {{num1}} {{username1}}
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-lg-3">
+                    </div>
+                </div>
+
+                <div class="row botton-row justify-content-center" id="button_row_1">
+                    <div class="col-md-4 col-lg-4">
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <div class='button-container' id="confirm_button_container_1">
+                            <button class="hidden_buttons confirm-button" onclick="updateGameStatus(1)" style="display: none" id="confirm_button_1" disabled>confirm</button>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-lg-3">
+                    </div>
+                </div>
+
+                <div class="row avatar-row justify-content-center" id="avatars_row_2">
+                    <div class="col-md-2 col-lg-2">
+                        <a href="#" onclick="selectPlayer(2)" id="player_2_avatar_link">
+                            <img id="avatar_2_img" src="{% static avatar2 %}" alt="player 2">
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-6" id="show_end_game">
+
+                    </div>
+                    <div class="col-md-1 col-lg-2">
+                        <a href="#" onclick="selectPlayer(6)" id="player_6_avatar_link">
+                            <img id="avatar_6_img" src="{% static avatar6 %}" alt="player 6">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row username-row justify-content-center" id="username_row_2">
+                    <div class="col-md-2 col-lg-2">
+                        <div class="username" id="player_2_name"> {{num2}} {{username2}}</div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                    </div>
+                    <div class="col-md-1 col-lg-2">
+                        <div class="username" id="player_6_name"> {{num6}} {{username6}}</div>
+                    </div>
+                </div>
+
+                <div class="row button-row justify-content-center" id="button_row_2">
+                    <div class="col-md-2 col-lg-2">
+                        <div class='button-container' id="confirm_button_container_2">
+                            <button class="hidden_buttons confirm-button" onclick="updateGameStatus(2)" style="display: none" id="confirm_button_2" disabled>confirm</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                    </div>
+                    <div class="col-md-1 col-lg-2">
+                        <div class='button-container' id="confirm_button_container_6">
+                            <button class="hidden_buttons confirm-button" onclick="updateGameStatus(6)" style="display: none" id="confirm_button_6" disabled>confirm</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row avatar-row justify-content-center" id="avatars_row_3">
+                    <div class="col-md-2 col-lg-2">
+                        <a href="#" onclick="selectPlayer(3)" id="player_3_avatar">
+                            <img id="avatar_3_img" src="{% static avatar3 %}" alt="player 3">
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                    </div>
+                    <div class="col-md-2 col-lg-2">
+                        <a href="#" onclick="selectPlayer(5)" id="player_5_avatar_link">
+                            <img id="avatar_5_img" src="{% static avatar5 %}" alt="player 5">
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="row username-row justify-content-center" id="usename_row_3">
+                    <div class="col-md-2 col-lg-2">
+                        <div class="username" id="player_3_name"> {{num3}} {{username3}}</div>
+                    </div>
+                    <div class="col-md-4 col-lg-6">
+                    </div>
+                    <div class="col-md-2 col-lg-2">
+                        <div class="username" id="player_5_name"> {{num5}} {{username5}}</div>
+                    </div>
+                </div>
+
+
+                <div class="row button-row justify-content-center" id="button_row_3">
+                    <div class="col-md-2 col-lg-2">
+                        <div class='button-container' id="confirm_button_container_3">
+                            <button class="hidden_buttons confirm-button" onclick="updateGameStatus(3)" style="display: none" id="confirm_button_3" disabled>confirm</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-6">
+                    </div>
+                    <div class="col-md-2 col-lg-2">
+                        <div class='button-container' id="confirm_button_container_5">
+                            <button class="hidden_buttons confirm-button" onclick="updateGameStatus(5)" style="display: none" id="confirm_button_5" disabled>confirm</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row avatar-row justify-content-center" id="avatars_row_4">
+                    <div class="col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <a href="#" onclick="selectPlayer(4)" id="player_4_avatar_link">
+                            <img id="avatar_4_img" src="{% static avatar4 %}" alt="player 4">
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-lg-3">
+<!--                        button to press after finishing speaking -->
+                        <button class="hidden_buttons" onclick="updateGameStatus(null)" style="display: none" id="next_step_button" disabled>Skip Action</button>
+                    </div>
+                </div>
+
+                <div class="row username-row justify-content-center" id="username_row_4">
+                    <div class="col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <div class="username" id="player_4_name"> {{num4}} {{username4}}</div>
+                    </div>
+                    <div class="col-md-3 col-lg-3">
+                    </div>
+                </div>
+
+                <div class="row button-row justify-content-center" id="button_row_4">
+                    <div class="col-md-4 col-lg-4">
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <div class='button-container' id="confirm_button_container_4">
+                            <button class="hidden_buttons confirm-button" onclick="updateGameStatus(4)" style="display: none" id="confirm_button_4" disabled>confirm</button>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-lg-3">
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="chat col-md-4 col-lg-4 d-flex flex-column justify-content-between">
+                <div class="col" id="game_chat_title">
+                    Game Chat
+                </div>
+                <div class="col">
+                    <div id="chatbox">
+                        <ul id="chat-message-list" style="list-style-type:none">
+                        </ul>
+                    </div>
+                </div>
+                <div class="col">
+                    <input type="text" id="message_input"/>
+                </div>
+                <div class="col">
+                    <button class="buttons" id="message_button" onclick="sendMessage()">Send</button>
+                </div>
+<!--                <div class="col">-->
+<!--                    <button class="buttons" id="message_button" onclick="nextStep()">Next Step</button>-->
+<!--                </div>-->
+                <div class="col" id="id_timer"> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

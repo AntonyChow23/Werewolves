@@ -1,0 +1,34 @@
+{% extends "werewolves/base.html" %}
+
+{% block heading %}
+<span id="id_logged_in_username">{{user.username}}</span>
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'login' %}" class="log-out" id="id_logout" onclick="exitGame()">Exit the Game</a>
+<div class="players">
+    <div class="players_label"> Players: </div><br>
+    <ul class="player-list" id="id_player_list">
+    </ul>
+</div>
+
+<div class="player-num" id="id_player_num">
+</div>
+
+<div class="player-joined" id="id_player_join">
+</div>
+
+<div>
+    <button class="buttons" style="visibility: hidden" id="id_start_game_button" onclick="sendStart()" disabled>Start Game</button>
+    <form method="get" action="{% url 'game' %}">
+        <button class="hidden_buttons buttons" style="visibility: hidden" id="id_start_game_hidden_button" disabled></button>
+        <span id="error" class="error"></span>
+    </form>
+</div>
+
+</section>
+
+<script>
+    window.setTimeout(sendJoin, 500)
+</script>
+{% endblock %}
